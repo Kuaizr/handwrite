@@ -6,8 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #text{
+      background-color: antiquewhite;
+      position: absolute;
+      left: 100px;
+      top: 100px;
+    }
+  </style>
   <body>
-    <canvas id="canvas" width="1900px"></canvas>
-    <script type="module" src="/js/main.js"></script>
+    <div id="text" style="width: 800px;height: 1000px;"></div>
   </body>
+  <script type="module" src="/js/main.js"></script>
 </html>

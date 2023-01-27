@@ -10,4 +10,4 @@ npm run dev
 
 暂时做到了随机笔画偏转这里
 
-![](https://raw.githubusercontent.com/Kuaizr/handwrite/master/imgs/1674714255688.gif)
+![](https://raw.githubusercontent.com/Kuaizr/handwrite/master/imgs/1674813157877.gif)
