@@ -6,8 +6,11 @@ npm install
 
 npm run dev
 
-修改js/main.js中的文字
+功能：支持行距、文字间隔、字体大小、渲染边界、扰动程度等自定义
 
-暂时做到了随机笔画偏转这里
+支持保存状态和撤销操作（支持Undo不支持Redo）
+
+后续要添加的功能：自定义纸张大小，方便十六开的纸，或者其他的纸适配大小。
+
 
 ![](https://raw.githubusercontent.com/Kuaizr/handwrite/master/imgs/1674813157877.gif)
