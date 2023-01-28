@@ -7,7 +7,17 @@ const rotateT = (x0, y0, x, y, a) => {
     return [_x, _y]
 }
 
-const drawText = (path, ctx, points) => {
+const drawCoordinate = (ctx) => {
+    ctx.beginPath()
+    ctx.moveTo(0, 0)
+    ctx.lineTo(0, 100)
+    ctx.moveTo(0, 0)
+    ctx.lineTo(100, 0)
+    ctx.stroke()
+    ctx.closePath()
+}
+
+const drawText = (path, ctx, points, route) => {
     let index = 0
     let distence = []
     let a = 0
@@ -16,7 +26,8 @@ const drawText = (path, ctx, points) => {
         const cmd = path.commands[i];
         if (cmd.type === 'M') {
 
-            a = -Math.PI / 15 * Math.random() * (Math.random() > 0.5 ? 1 : -1)
+            a = -1 * route * Math.PI / 150 * Math.random() * (Math.random() > 0.5 ? 1 : -1)
+
             distence = rotateT(points[index][0], points[index][1], 0, 0, -a)
             ctx.translate(distence[0], distence[1])
             ctx.rotate(-a)
@@ -86,32 +97,104 @@ const getPoints = (path) => {
 }
 
 
-export const write = (text,ctx,font,fontsize,space,boundary) => {
+export const saveState = (canvas, history) => {
+    history.push(canvas.toDataURL());
+}
+
+export const saveImg = (canvas) => {
+    canvas.toBlob((blob) => {
+        const timestamp = Date.now().toString();
+        const a = document.createElement('a');
+        document.body.append(a);
+        a.download = `${timestamp}.png`;
+        a.href = URL.createObjectURL(blob);
+        a.click();
+        a.remove();
+    });
+}
+
+export const undo = (ctx, canvas, history) => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let canvasPic = new Image();
+    canvasPic.src = history.pop();
+    canvasPic.addEventListener('load', () => {
+        ctx.drawImage(canvasPic, 0, 0);
+    });
+}
+
+export const clearArea = (ctx, boundary) => {
+    let [leftBoundary, rightBoundary, topBoundary, buttomBoundary] = boundary
+    ctx.clearRect(leftBoundary,
+        topBoundary,
+        rightBoundary - leftBoundary,
+        buttomBoundary - topBoundary)
+}
+
+
+export function write(words, ctx, font, fontsize, space, boundary, route) {
     let [Horizontal, Vertical] = space
     let [leftBoundary, rightBoundary, topBoundary, buttomBoundary] = boundary
     //初始化边界
-    ctx.translate(leftBoundary,topBoundary)
+    ctx.translate(leftBoundary, topBoundary)
     let Vlimit = rightBoundary - leftBoundary
     let Hlimit = buttomBoundary - topBoundary
     //处理文字
-    let words = processText(text)
     let widths = 0
     let heights = fontsize
     for (let i = 0; i < words.length; i++) {
-        let path = font.getPath(words[i], 0, fontsize, fontsize)
-        let [points, width] = getPoints(path)
-        if (widths + width + Horizontal > Vlimit) {
+        if (words[i] == " ") {
+            let width = fontsize / 2
+            if (widths + width + Horizontal > Vlimit) {
+                ctx.translate(-widths, fontsize + Vertical)
+                widths = 0
+                heights = heights + fontsize + Vertical
+                if (heights > Hlimit) {
+                    console.log("文字超过了")
+                    ctx.translate(-widths, -(heights - fontsize))
+                    ctx.translate(-leftBoundary, -topBoundary)
+                    return words.slice(i)
+                }
+            }
+            ctx.translate(width + Horizontal, 0)
+            widths += (width + Horizontal)
+
+        } else if (words[i] == "\n") {
             ctx.translate(-widths, fontsize + Vertical)
             widths = 0
             heights = heights + fontsize + Vertical
-            if(heights > Hlimit){
+            if (heights > Hlimit) {
                 console.log("文字超过了")
+                ctx.translate(-widths, -(heights - fontsize))
+                ctx.translate(-leftBoundary, -topBoundary)
                 return words.slice(i)
             }
+
+        } else {
+            let path = font.getPath(words[i], 0, fontsize, fontsize)
+            if (path.commands.length == 0) {
+                path = font.getPath("#", 0, fontsize, fontsize)
+                path.fill = "red"
+            }
+            let [points, width] = getPoints(path)
+            if (widths + width + Horizontal > Vlimit) {
+                ctx.translate(-widths, fontsize + Vertical)
+                widths = 0
+                heights = heights + fontsize + Vertical
+                if (heights > Hlimit) {
+                    console.log("文字超过了")
+                    ctx.translate(-widths, -(heights - fontsize))
+                    ctx.translate(-leftBoundary, -topBoundary)
+                    return words.slice(i)
+                }
+            }
+            drawText(path, ctx, points, route)
+            ctx.translate(width + Horizontal, 0)
+            widths += (width + Horizontal)
         }
-        drawText(path, ctx, points)
-        ctx.translate(width + Horizontal, 0)
-        widths += (width + Horizontal)
     }
+
+    ctx.translate(-widths, -(heights - fontsize))
+    ctx.translate(-leftBoundary, -topBoundary)
+
 
 }

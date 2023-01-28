@@ -40,26 +40,12 @@ const getScrollTop = () => {
 
 
 export const processText = (text) => {
-  const checkNumsOrChars = (word) => {
-    var re = new RegExp("[0-9a-zA-Z.]");  //判断字符串是否为数字和字母组合     //判断正整数 /^[1-9]+[0-9]*]*$/  
-    if (!re.test(word)) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  console.log(text)
+
   let words = []
   let tempchar = ""
   for (let i = 0; i < text.length; i++) {
-    if (checkNumsOrChars(text[i])) {
-      tempchar += text[i]
-    } else {
-      if (tempchar != "") {
-        words.push(tempchar)
-        tempchar = ""
-      }
-      words.push(text[i])
-    }
+    words.push(text[i])
   }
   return words
 }

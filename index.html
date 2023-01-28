@@ -12,6 +12,11 @@
     </div>
     <div id="wrapper">
       <div class="item">
+        <button id="clearAll">清除全部区域</button>
+        <button id="clear">清除框选区域</button>
+        
+      </div>
+      <div class="item">
         <span>请选择背景：</span>
         <a href="javascript:;" class="file">选择背景
           <input type="file" name="imgfile" id="imgfile">
@@ -35,9 +40,15 @@
         <span>纸张左边距：</span><input id="leftinput"   class="input" type="number"><br>
         <span>纸张右边距：</span><input id="rightinput"  class="input" type="number"><br>
       </div>
+      
       <div class="item">
         输入文本：
-        <textarea class="input" id="textarea" name="textarea" cols="60" rows="20"></textarea>
+        <textarea class="input" id="textarea" name="textarea" cols="60" rows="15" style="resize:none;"></textarea>
+      </div>
+      <div class="item">
+        <button id="undo">撤回上一个状态</button>
+        <button id="save">保存图片</button>
+        <button id="render">渲染文字</button>
       </div>
 
     </div>
