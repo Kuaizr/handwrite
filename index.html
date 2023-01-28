@@ -2,24 +2,45 @@
 <html lang="zh">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css">
     <title>Vite App</title>
   </head>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-    #text{
-      background-color: antiquewhite;
-      position: absolute;
-      left: 100px;
-      top: 100px;
-    }
-  </style>
   <body>
-    <div id="text" style="width: 800px;height: 1000px;"></div>
+    <div id="text" style="width: 1050px;height: 1485px;">
+      <img src="imgs/A4本子.jpg" style="width:100%;position: absolute;left: 0px;top: 0px;z-index: -999;">
+    </div>
+    <div id="wrapper">
+      <div class="item">
+        <span>请选择背景：</span>
+        <a href="javascript:;" class="file">选择背景
+          <input type="file" name="imgfile" id="imgfile">
+      </a>
+      </div>
+      <div class="item">
+        <span>请选择字体：</span>
+        <a href="javascript:;" class="file">选择字体
+          <input type="file" name="fontfile" id="fontfile">
+      </a>
+      </div>
+      <div class="item">
+        <span>字体大小：</span><input class="input" id="fontsize" type="number"><br>
+        <span>水平间隔：</span><input class="input" id="Horizontal" type="number"><br>
+        <span>竖直行距：</span><input class="input" id="Vertical" type="number"><br>
+        <span>笔画扰动：</span><input class="input" id="route" type="number"><br>
+      </div>
+      <div class="item">
+        <span>纸张上边距：</span><input id="topinput"    class="input" type="number"><br>
+        <span>纸张下边距：</span><input id="buttominput" class="input" type="number"><br>
+        <span>纸张左边距：</span><input id="leftinput"   class="input" type="number"><br>
+        <span>纸张右边距：</span><input id="rightinput"  class="input" type="number"><br>
+      </div>
+      <div class="item">
+        输入文本：
+        <textarea class="input" id="textarea" name="textarea" cols="60" rows="20"></textarea>
+      </div>
+
+    </div>
   </body>
   <script type="module" src="/js/main.js"></script>
 </html>
