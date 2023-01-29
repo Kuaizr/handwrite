@@ -28,7 +28,7 @@
 #wrapper {
     position: fixed;
     width: 400px;
-    left: 1400px;
+    right: 100px;
     top: 50px;
     display: flex;
     flex-wrap: wrap;

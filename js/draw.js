@@ -17,19 +17,23 @@ const drawCoordinate = (ctx) => {
     ctx.closePath()
 }
 
-const drawText = (path, ctx, points, route) => {
+const drawText = (path, ctx, points, route, offset,fontsize) => {
     let index = 0
     let distence = []
     let a = 0
+    let vd = 0
+    let hd = 0
     ctx.beginPath();
     for (let i = 0; i < path.commands.length; i += 1) {
         const cmd = path.commands[i];
         if (cmd.type === 'M') {
 
             a = -1 * route * Math.PI / 150 * Math.random() * (Math.random() > 0.5 ? 1 : -1)
+            vd = offset * fontsize / 250 * Math.random() * (Math.random() > 0.5 ? 1 : -1)
+            hd = offset * fontsize / 250 * Math.random() * (Math.random() > 0.5 ? 1 : -1)
 
             distence = rotateT(points[index][0], points[index][1], 0, 0, -a)
-            ctx.translate(distence[0], distence[1])
+            ctx.translate(distence[0]+hd, distence[1]+vd)
             ctx.rotate(-a)
 
             ctx.moveTo(cmd.x, cmd.y);
@@ -41,7 +45,7 @@ const drawText = (path, ctx, points, route) => {
             ctx.quadraticCurveTo(cmd.x1, cmd.y1, cmd.x, cmd.y);
         } else if (cmd.type === 'Z') {
             ctx.rotate(a)
-            ctx.translate(-distence[0], -distence[1])
+            ctx.translate(-distence[0]-hd, -distence[1]-vd)
             index += 1
             ctx.closePath();
         }
@@ -131,7 +135,7 @@ export const clearArea = (ctx, boundary) => {
 }
 
 
-export function write(words, ctx, font, fontsize, space, boundary, route) {
+export function write(words, ctx, font, fontsize, space, boundary, route, offset) {
     let [Horizontal, Vertical] = space
     let [leftBoundary, rightBoundary, topBoundary, buttomBoundary] = boundary
     //初始化边界
@@ -187,7 +191,7 @@ export function write(words, ctx, font, fontsize, space, boundary, route) {
                     return words.slice(i)
                 }
             }
-            drawText(path, ctx, points, route)
+            drawText(path, ctx, points, route , offset ,fontsize)
             ctx.translate(width + Horizontal, 0)
             widths += (width + Horizontal)
         }
@@ -195,6 +199,5 @@ export function write(words, ctx, font, fontsize, space, boundary, route) {
 
     ctx.translate(-widths, -(heights - fontsize))
     ctx.translate(-leftBoundary, -topBoundary)
-
-
+    return ""
 }

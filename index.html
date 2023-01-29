@@ -4,11 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/style.css">
-    <title>Vite App</title>
+    <title>手写字体生成器</title>
   </head>
   <body>
-    <div id="text" style="width: 1050px;height: 1485px;">
-      <img src="imgs/A4本子.jpg" style="width:100%;position: absolute;left: 0px;top: 0px;z-index: -999;">
+    <div id="head" style="position:absolute; left: 300px">
+      <span>纸张大小：</span>
+      <input id="paperwidth" class="input" type="number" value="1050" /> X <input id="paperhight" class="input"  type="number" value="1485"/>
+      <span> 预设：</span>
+      <select class="input" name="select" id="select" >
+        <option selected="selected" value="A4">A4</option>
+        <option value="16开">16开</option>
+    </select>
+    <button id="confirm">应用</button>
+
+    </div>
+    <div id="text">
+      <img id="img" src="imgs/A4本子.jpg" style="width:100%;position: absolute;left: 0px;top: 0px;z-index: -999;">
     </div>
     <div id="wrapper">
       <div class="item">
@@ -18,13 +29,13 @@
       </div>
       <div class="item">
         <span>请选择背景：</span>
-        <a href="javascript:;" class="file">选择背景
-          <input type="file" name="imgfile" id="imgfile">
+        <a href="javascript:;" class="file"><span>选择背景(默认：横线)</span>
+          <input type="file" name="imgfile" id="imgfile" accept="image/png, image/jpeg, image/jpg">
       </a>
       </div>
       <div class="item">
         <span>请选择字体：</span>
-        <a href="javascript:;" class="file">选择字体
+        <a href="javascript:;" class="file"><span>选择字体(默认：无)</span>
           <input type="file" name="fontfile" id="fontfile">
       </a>
       </div>
@@ -33,6 +44,7 @@
         <span>水平间隔：</span><input class="input" id="Horizontal" type="number"><br>
         <span>竖直行距：</span><input class="input" id="Vertical" type="number"><br>
         <span>笔画扰动：</span><input class="input" id="route" type="number"><br>
+        <span>笔画偏移：</span><input class="input" id="offsetInput" type="number"><br>
       </div>
       <div class="item">
         <span>纸张上边距：</span><input id="topinput"    class="input" type="number"><br>
@@ -43,7 +55,7 @@
       
       <div class="item">
         输入文本：
-        <textarea class="input" id="textarea" name="textarea" cols="60" rows="15" style="resize:none;"></textarea>
+        <textarea class="input" id="textarea" name="textarea" cols="60" rows="13" style="resize:none;"></textarea>
       </div>
       <div class="item">
         <button id="undo">撤回上一个状态</button>

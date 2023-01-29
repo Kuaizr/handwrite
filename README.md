@@ -12,5 +12,4 @@ npm run dev
 
 后续要添加的功能：自定义纸张大小，方便十六开的纸，或者其他的纸适配大小。
 
-
 ![](https://raw.githubusercontent.com/Kuaizr/handwrite/master/imgs/1674813157877.gif)

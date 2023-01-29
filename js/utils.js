@@ -28,6 +28,13 @@ export const getStyle = (obj, attr) => {
     return obj.currentStyle[attr];
 }
 
+export const fileReader = (input) => {
+  let url = window.URL.createObjectURL(input.files.item(0));
+  let name = input.files.item(0).name
+  return [url,name]
+
+}
+
 const getScrollTop = () => {
   var scrollPos;
   if (window.pageYOffset) {
@@ -51,8 +58,8 @@ export const processText = (text) => {
 }
 
 export const createBound = (root) => {
-  let width = getStyle(root,"width")
-  let height = getStyle(root,"height")
+  let width = getStyle(root, "width")
+  let height = getStyle(root, "height")
   let topBound = document.createElement('div')
   topBound.className = "bound"
   topBound.style.width = width
@@ -81,7 +88,7 @@ export const createBound = (root) => {
       buttomBound.style.display = "block"
       leftBound.style.display = "block"
       rightBound.style.display = "block"
-    }else{
+    } else {
       topBound.style.display = "none"
       buttomBound.style.display = "none"
       leftBound.style.display = "none"
