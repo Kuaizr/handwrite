@@ -8,7 +8,7 @@
 
 ### 直接运行
 
-找一台安装安装了chrome内核浏览器或者firefox的电脑，使用浏览器打开release文件夹下的`手写字体生成器.html`即可，该网页不依赖其他静态资源文件
+找一台安装安装了chrome内核浏览器或者firefox的电脑，使用浏览器打开release中的`default.html`即可，该网页不依赖其他静态资源文件
 
 ### 通过源代码运行
 
@@ -45,6 +45,5 @@ npm run dev
 ![](https://github.com/Kuaizr/handwrite/blob/master/imgs/2.png?raw=true)
 
 ![](https://github.com/Kuaizr/handwrite/blob/master/imgs/3.png?raw=true)
-
 
 本程序完全开源，不会用于商业目的，如有侵权，请联系我
